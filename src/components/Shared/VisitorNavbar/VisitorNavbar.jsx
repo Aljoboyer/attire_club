@@ -17,8 +17,10 @@ function classNames(...classes) {
 
 export default function VisitorNavbar() {
     const isLoggedIn = localStorage.getItem('attireclubtoken')
-    const navigate = useNavigate()
+    const isEmail = localStorage.getItem('attireclubemail')
 
+    const navigate = useNavigate()
+    
   return (
     <Disclosure as="nav" className="">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -42,9 +44,15 @@ export default function VisitorNavbar() {
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                    <p onClick={() => navigate('/')}  className='p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>Home</p>
-                    <p className='p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>All Products</p>
-                    <p className='p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>About Us</p>
+                    <p onClick={() => navigate('/')}  className='mt-2 p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>Home</p>
+                    <p className='mt-2 p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>All Products</p>
+                    <p className='mt-2 p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>About Us</p>
+                    {
+                      (isLoggedIn &&  isEmail !== 'admin@gmail.com' ) && <p onClick={() => navigate('/orders')} className='mt-2 p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>My Orders</p>
+                    }
+                    {
+                     ( isLoggedIn && isEmail == 'admin@gmail.com') && <p onClick={() => navigate('/dashboard')} className='mt-2 p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>Dashboard</p>
+                    }
               </div>
             </div>
           </div>
@@ -74,6 +82,7 @@ export default function VisitorNavbar() {
                 <p
                   onClick={() => {
                     localStorage.removeItem('attireclubtoken')
+                    localStorage.removeItem('attireclubemail')
                     navigate('/login')
                   }}
                   // href="#"
