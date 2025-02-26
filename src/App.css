@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+.nav_item:hover{
+    background-color: rgb(216, 216, 216);
+    border-radius: 4px;
+    transition: ease-in-out;
+}
+.product_card:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
+}
