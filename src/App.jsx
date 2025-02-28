@@ -7,6 +7,8 @@ import Login from './pages/auth/Login'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Myorders from './pages/visitors/Myorders'
 import Dashboard from './pages/admin/Dashboard'
+import AddProduct from './pages/admin/AddProduct/AddProduct'
+import ManageProduct from './pages/admin/ManageProduct/ManageProduct'
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
               <Route path="login" element={  <Login/>} />
               <Route path="orders" element={  <Myorders/>} />
               <Route path="dashboard" element={  <Dashboard/>} />
+              <Route path="dashboard/AddProduct" element={  <AddProduct/>} />
+              <Route path="dashboard/ManageProduct" element={  <ManageProduct/>} />
             </Routes>
         </main>
     </BrowserRouter>

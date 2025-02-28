@@ -9,3 +9,8 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     cursor: pointer;
 }
+
+.sidebar_link:hover{
+    background-color: rgb(178, 178, 178);
+    transition: ease-in-out ;
+}

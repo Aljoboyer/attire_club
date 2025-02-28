@@ -42,7 +42,12 @@ const Login = () => {
             })
             localStorage.setItem('attireclubemail', loginData.email)
             localStorage.setItem('attireclubtoken', data.token)
+            if(loginData.email == 'admin@gmail.com'){
+              navigate('/dashboard')
+            }else{
             navigate('/')
+
+            }
           }
         })
   }
@@ -64,7 +69,7 @@ const Login = () => {
                 {/* errors will return when field validation fails  */}
                 {errors.password ? <span className='text-red-500 text-[12px] block mt-2'>Enter Your Password</span> : <span className='text-red-500 text-[12px] block mt-2'>{passwordError}</span>}
 
-                <input className='bg-blue-800 text-white px-4 py-2 rounded-md block' type="submit" />
+                <button  className='bg-blue-800 text-white px-4 py-2 rounded-md block' type="submit">Login</button>
             </form>
             <p onClick={() => navigate('/registration')} className='mt-4 underline italic font-medium text-blue-400 cursor-pointer'>If you don't have an account ? Register please</p>
             </div>
