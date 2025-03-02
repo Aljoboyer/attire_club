@@ -1,5 +1,4 @@
 import React from 'react'
-import VisitorLayout from '../../components/VisitorLayout/VisitorLayout'
 import DasboardLayout from '../../components/Dasboard/DasboardLayout/DasboardLayout'
 
 const Dashboard = () => {

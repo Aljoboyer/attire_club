@@ -39,6 +39,7 @@ export default function DasboardNav() {
                 src={WebsiteIcon}
                 className="h-8 w-auto"
               />
+              <h1 className='site_title ms-2'>Attire-Club</h1>
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
@@ -49,7 +50,7 @@ export default function DasboardNav() {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <Menu as="div" className="relative ml-3">
             <div>
-              <MenuButton className="relative flex rounded-full bg-[#e40f0a] text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden p-2 rounded-md">
+              <MenuButton className="relative flex rounded-full bg-[#e40f0a] text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden p-2 ">
                 <CgProfile color='white' size={30}/>  
               </MenuButton>
             </div>

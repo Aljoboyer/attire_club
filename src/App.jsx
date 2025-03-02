@@ -9,6 +9,7 @@ import Myorders from './pages/visitors/Myorders'
 import Dashboard from './pages/admin/Dashboard'
 import AddProduct from './pages/admin/AddProduct/AddProduct'
 import ManageProduct from './pages/admin/ManageProduct/ManageProduct'
+import ManageOrders from './pages/admin/ManageOrders/ManageOrders'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
               <Route path="dashboard" element={  <Dashboard/>} />
               <Route path="dashboard/AddProduct" element={  <AddProduct/>} />
               <Route path="dashboard/ManageProduct" element={  <ManageProduct/>} />
+              <Route path="dashboard/ManageOrders" element={  <ManageOrders/>} />
             </Routes>
         </main>
     </BrowserRouter>
