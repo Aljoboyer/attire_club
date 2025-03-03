@@ -38,3 +38,12 @@
 .dark_text{
     color:  #4527a0;
 }
+.edit_btn{
+    border-radius: 6px;
+}
+
+.empty_div{
+    width: 10px;
+    height: 100%;
+    background-color: rgb(152, 79, 79);
+}
