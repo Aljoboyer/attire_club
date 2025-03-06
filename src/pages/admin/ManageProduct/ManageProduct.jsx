@@ -2,9 +2,16 @@ import React from 'react'
 import DashboardLayout from '../../../components/Dasboard/DasboardLayout/DasboardLayout'
 import { Table } from 'react-bootstrap'
 import { useNavigate } from 'react-router'
+import { useGetAllProductQuery } from '../../../redux/features/productApi'
 
 const ManageProduct = () => {
   const navigate = useNavigate()
+  const {data: allProduct, refetch} = useGetAllProductQuery({
+		refetchOnMountOrArgChange: true,
+	  });
+
+    console.log('all prod ==>', allProduct?.product)
+    
   return (
     <DashboardLayout>
         <div  className='pl-[200px] py-4 flex flex-row justify-center'>
@@ -21,12 +28,12 @@ const ManageProduct = () => {
             </thead>
             <tbody>
              {
-              [1,2,3,4,5]?.map((item) => (
+              allProduct?.product?.map((item) => (
                 <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>{item?.name}</td>
+                <td>{item?.price}</td>
+                <td>{item?.size}</td>
+                <td>{item?.gender}</td>
                 <td>
                   <button className='bg-[#d84315] p-2 text-white edit_btn'>Delete</button>
                   <button onClick={() => navigate('/dashboard/EditProduct')} className='bg-[#4527a0] ms-2 p-2 text-white edit_btn'>Edit</button>

@@ -1,18 +1,51 @@
 import React from 'react'
 import DashboardLayout from '../../../components/Dasboard/DasboardLayout/DasboardLayout'
 import { useForm } from 'react-hook-form'
+import { useAddProductMutation } from '../../../redux/features/productApi'
+import Swal from 'sweetalert2'
 
 const AddProduct = () => {
+  const [productAddTrigger, {}] = useAddProductMutation()
 
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm()
   
-  const onSubmit= (data) => {
+  const onSubmit= async (data) => {
     console.log('data', data)
+    const formData = new FormData()
+
+    formData.append('name', data.name)
+    formData.append('price', data.price)
+    formData.append('size', data.size)
+    formData.append('gender', data.gender)
+    formData.append('img', data.img[0])
+    formData.append('description', data.description)
+
+
+    const prodResponse = await productAddTrigger(formData)
+
+    if(prodResponse.data?.msg == "Product Added Successfully"){
+      reset()
+      Swal.fire({
+        title: "Success!",
+        text: "Product added Successfully",
+        icon: "success"
+      })
+    }
+    else{
+      Swal.fire({
+        title: "Error!",
+        text: "Something went wrong",
+        icon: "error"
+      })
+    }
+
+    console.log('Result', prodResponse)
   }
   return (
     <DashboardLayout>
