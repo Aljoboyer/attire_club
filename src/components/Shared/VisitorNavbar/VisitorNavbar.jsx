@@ -4,6 +4,7 @@ import WebsiteIcon from '../../../assets/attire_icon.png'
 import { useNavigate } from 'react-router'
 import { CgProfile } from "react-icons/cg";
 import { FaCartArrowDown } from "react-icons/fa6";
+import { useSelector } from 'react-redux';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -21,10 +22,12 @@ export default function VisitorNavbar() {
     const isEmail = localStorage.getItem('attireclubemail')
 
     const navigate = useNavigate()
-    
+  const productcounts = useSelector((state) => state.prodstore.productcount)
+  
+
   return (
-    <Disclosure as="nav" className="">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <Disclosure as="nav" className="sticky top-0 bg-white">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
@@ -58,12 +61,20 @@ export default function VisitorNavbar() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <button onClick={() => {
+                if(isLoggedIn){
+                  navigate('/cart')
+                }
+                else{
+                  navigate('/login')
+                }
+              }} className='rounded-full bg-blue-700 p-2 me-2 text-white flex flex-row'><FaCartArrowDown color='white' size={25} className='me-2'/> {productcounts}</button>
                 {
                     isLoggedIn ? 
                    
             <Menu as="div" className="relative ml-3">
             <div className='flex flex-row'>
-              <button className='rounded-full bg-blue-700 p-2 me-2 text-white flex flex-row'><FaCartArrowDown color='white' size={25} className='me-2'/> 0</button>
+             
               <MenuButton className="relative flex rounded-full bg-[#e40f0a] text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden p-2 rounded-md">
                 <CgProfile color='white' size={30}/>  
               </MenuButton>

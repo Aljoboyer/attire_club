@@ -1,9 +1,9 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import { counterReducer } from './slices/counterslice';
 import { api } from './api';
+import { productReducer } from './slices/productSlice';
 
 // add the necessary reducers here //
 export const rootReducer = combineReducers({
-  counter: counterReducer,
+  prodstore: productReducer,
   [api.reducerPath]: api.reducer,
 });

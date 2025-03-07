@@ -13,6 +13,7 @@ import ManageOrders from './pages/admin/ManageOrders/ManageOrders'
 import EditProduct from './pages/admin/EditProduct/EditProduct'
 import Allproduct from './pages/visitors/Allproduct'
 import ProdDetails from './pages/visitors/ProdDetails'
+import Cart from './pages/visitors/Cart'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
               <Route path="dashboard/EditProduct/:id" element={  <EditProduct/>} />
               <Route path="Allproduct" element={  <Allproduct/>} />
               <Route path="ProdDetails/:id" element={  <ProdDetails/>} />
+              <Route path="cart" element={  <Cart/>} />
             </Routes>
         </main>
     </BrowserRouter>
