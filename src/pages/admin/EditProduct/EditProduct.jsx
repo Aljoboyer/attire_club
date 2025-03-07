@@ -1,19 +1,99 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DashboardLayout from '../../../components/Dasboard/DasboardLayout/DasboardLayout'
 import { useForm } from 'react-hook-form'
+import { useLocation, useNavigate, useParams } from 'react-router'
+import { useUpdateProductMutation } from '../../../redux/features/productApi'
+import Swal from 'sweetalert2'
 
 const EditProduct = () => {
+  const {id} = useParams()
+  const [product, setProduct] = useState({})
+  const [productUpdateTrigger, {}] = useUpdateProductMutation()
+  const navigate = useNavigate()
 
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm()
   
-  const onSubmit= (data) => {
-    console.log('data', data)
+  const prodWatch = watch()
+
+  const onSubmit= async (data) => {
+    if(data?.img[0]?.name){
+      const formData = new FormData()
+
+      formData.append('name', data.name)
+      formData.append('price', data.price)
+      formData.append('size', data.size)
+      formData.append('gender', data.gender)
+      formData.append('img', data.img[0])
+      formData.append('description', data.description)
+      const response = await productUpdateTrigger({requestBody: formData, id})
+
+      if(response.data?.msg == "Product updated"){
+            
+            Swal.fire({
+              title: "Success!",
+              text: "Product Updated Successfully",
+              icon: "success"
+            })
+            navigate('/dashboard/ManageProduct')
+          }
+          else{
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong",
+              icon: "error"
+            })
+          }
+
+    }
+    else{
+      const newObj = {
+        name: data.name,
+        price: data.price,
+        size: data.size,
+        description: data.description,
+        gender: data.gender
+      }
+      const response = await productUpdateTrigger({requestBody: newObj, id})
+      if(response.data?.msg == "Product updated"){
+            
+        Swal.fire({
+          title: "Success!",
+          text: "Product Updated Successfully",
+          icon: "success"
+        })
+        navigate('/dashboard/ManageProduct')
+      }
+      else{
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong",
+          icon: "error"
+        })
+      }
+    }
   }
+
+  const fetchProduct = async () => {
+    fetch(`http://localhost:5000/singleprod/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      reset(data)
+      setProduct(data)
+    })
+  }
+
+  useEffect(() => {
+    fetchProduct()
+  },[])
+
+  console.log(prodWatch)
+  console.log(errors)
   return (
     <DashboardLayout>
         <div className='pl-[200px] py-4 flex flex-row justify-center '>
@@ -56,8 +136,11 @@ const EditProduct = () => {
                     </div>
                 </div>
 
+                {
+                  prodWatch?.img && <> {prodWatch?.img[0]?.name ? "" : <img src={`data:image/jpeg;base64,${product?.img}`} /> }</>
+                }
                 <label className='dark_text font-medium mt-4'>Product Image</label>
-                <input type='file'  placeholder='Add Product Image' className='block border border-2 border-blue-600 px-2 rounded-md h-[40px] mt-2 w-full' {...register("img", { required: true })} />
+                <input type='file'  placeholder='Add Product Image' className='block border border-2 border-blue-600 px-2 rounded-md h-[40px] mt-2 w-full' {...register("img",)} />
 
                 <label className='dark_text font-medium mt-4'>Description</label>
                 <textarea  placeholder='Write Description' className='block border border-2 border-blue-600 px-2 rounded-md h-[40px] mt-2 w-full' {...register("description", { required: true })} />

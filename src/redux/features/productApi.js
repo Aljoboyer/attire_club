@@ -19,10 +19,29 @@ const authApi = api.injectEndpoints({
     //   invalidatesTags: [''],
     }),
 
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/deleteprod/${id}`,
+        method: 'DELETE',
+      }),
+    //   invalidatesTags: [''],
+    }),
+
+    updateProduct: builder.mutation({
+      query: (data) => ({
+        url: `/updateProd/${data.id}`,
+        method: 'PUT',
+        body: data.requestBody
+      }),
+    //   invalidatesTags: [''],
+    }),
+
   }),
 });
 
 export const {
   useAddProductMutation,
-  useGetAllProductQuery
+  useGetAllProductQuery,
+  useDeleteProductMutation,
+  useUpdateProductMutation
 } = authApi;
