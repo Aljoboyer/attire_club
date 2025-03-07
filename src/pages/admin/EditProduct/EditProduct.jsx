@@ -92,8 +92,7 @@ const EditProduct = () => {
     fetchProduct()
   },[])
 
-  console.log(prodWatch)
-  console.log(errors)
+ 
   return (
     <DashboardLayout>
         <div className='pl-[200px] py-4 flex flex-row justify-center '>

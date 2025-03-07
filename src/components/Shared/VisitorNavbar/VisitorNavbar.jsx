@@ -3,6 +3,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import WebsiteIcon from '../../../assets/attire_icon.png'
 import { useNavigate } from 'react-router'
 import { CgProfile } from "react-icons/cg";
+import { FaCartArrowDown } from "react-icons/fa6";
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -45,7 +46,7 @@ export default function VisitorNavbar() {
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                     <p onClick={() => navigate('/')}  className='mt-2 p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>Home</p>
-                    <p className='mt-2 p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>All Products</p>
+                    <p onClick={() => navigate('/Allproduct')}  className='mt-2 p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>All Products</p>
                     <p className='mt-2 p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>About Us</p>
                     {
                       (isLoggedIn &&  isEmail !== 'admin@gmail.com' ) && <p onClick={() => navigate('/orders')} className='mt-2 p-2 font-medium text-blue-800 nav_item bg-white block cursor-pointer'>My Orders</p>
@@ -61,7 +62,8 @@ export default function VisitorNavbar() {
                     isLoggedIn ? 
                    
             <Menu as="div" className="relative ml-3">
-            <div>
+            <div className='flex flex-row'>
+              <button className='rounded-full bg-blue-700 p-2 me-2 text-white flex flex-row'><FaCartArrowDown color='white' size={25} className='me-2'/> 0</button>
               <MenuButton className="relative flex rounded-full bg-[#e40f0a] text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden p-2 rounded-md">
                 <CgProfile color='white' size={30}/>  
               </MenuButton>
