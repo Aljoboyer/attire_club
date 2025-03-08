@@ -36,6 +36,23 @@ const authApi = api.injectEndpoints({
     //   invalidatesTags: [''],
     }),
 
+    orderSubmit: builder.mutation({
+      query: (data ) => ({
+        url: '/ordersubmit',
+        method: 'POST',
+        body: data
+      }),
+    //   invalidatesTags: [''],
+    }),
+
+    getAllOrders: builder.query({
+      query: (data ) => ({
+        url: '/allOrders',
+        method: 'GET',
+      }),
+    //   invalidatesTags: [''],
+    }),
+
   }),
 });
 
@@ -43,5 +60,7 @@ export const {
   useAddProductMutation,
   useGetAllProductQuery,
   useDeleteProductMutation,
-  useUpdateProductMutation
+  useUpdateProductMutation,
+  useOrderSubmitMutation,
+  useGetAllOrdersQuery
 } = authApi;

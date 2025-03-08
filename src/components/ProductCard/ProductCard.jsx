@@ -9,8 +9,9 @@ const ProductCard = ({item}) => {
   const dispatch = useDispatch()
 
   const addProdHandler = (id) => {
+   
     const isExistProd = prodCart?.find((item) => item.id == id)
-    console.log('isexists ===>', isExistProd)
+    
     if(isExistProd?.id){
       const removeProd = prodCart?.filter((item) => item?.id !== id)
 
@@ -49,20 +50,35 @@ const ProductCard = ({item}) => {
       const removeProd = prodCart?.filter((item) => item?.id !== id)
 
       const reducCount = isExistProd?.count - 1
+
+      if(reducCount == 0){
+          const removeProd = prodCart?.filter((item) => item?.id !== id)
+
+          let sum = 0
+
+          for (const item of removeProd) {
+            sum = sum + item?.count
+          }
+          dispatch(setProductCount(sum))
+          dispatch(setProductToCart(removeProd))
+
+      }
+      else{
       const newObj = {id: id, count: reducCount}
 
       const newCart = [...removeProd, newObj]
 
-      let sum = 0
+          let sum = 0
 
-      for (const item of newCart) {
-        sum = sum + item?.count
+          for (const item of newCart) {
+            sum = sum + item?.count
+          }
+          
+          dispatch(setProductCount(sum))
+          dispatch(setProductToCart(newCart))
       }
-      dispatch(setProductCount(sum))
-      dispatch(setProductToCart(newCart))
     }
   }
-  console.log('prodCart ===>', prodCart)
 
   return (
     <div className='product_card rounded p-4 w-[300px] border-1 border-gray-200'>

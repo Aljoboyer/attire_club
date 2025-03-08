@@ -27,7 +27,7 @@ export default function VisitorNavbar() {
 
   return (
     <Disclosure as="nav" className="sticky top-0 bg-white">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-2">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
@@ -68,7 +68,7 @@ export default function VisitorNavbar() {
                 else{
                   navigate('/login')
                 }
-              }} className='rounded-full bg-blue-700 p-2 me-2 text-white flex flex-row'><FaCartArrowDown color='white' size={25} className='me-2'/> {productcounts}</button>
+              }} className='rounded-full bg-blue-700 p-2 me-2 text-white flex flex-row mt-4'><FaCartArrowDown color='white' size={25} className='me-2'/> {productcounts}</button>
                 {
                     isLoggedIn ? 
                    

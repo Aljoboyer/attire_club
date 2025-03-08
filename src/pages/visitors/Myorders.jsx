@@ -1,8 +1,15 @@
 import React from 'react'
 import VisitorLayout from '../../components/VisitorLayout/VisitorLayout'
 import { Table } from 'react-bootstrap'
+import { useGetAllOrdersQuery } from '../../redux/features/productApi';
 
 const Myorders = () => {
+
+  const {data: allOrders, refetch} = useGetAllOrdersQuery({
+              refetchOnMountOrArgChange: true,
+            });
+  console.log('all Orders ===>', allOrders)
+  
   return (
     <VisitorLayout>
          <h1 className='my-7 font-bold text-blue-700 text-center'>Your Orders</h1>
@@ -16,19 +23,24 @@ const Myorders = () => {
                 <th>Paid Amount</th>
                 <th>Status</th>
                 <th>Size</th>
+                <th>Pieces</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
              {
-              [1,2,3,4,5]?.map((item) => (
+              allOrders?.map((item) => (
                 <tr>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>{item?.name}</td>
+                <td>{item?.totalProdPrice}</td>
+                <td>{item?.status}</td>
+                <td>{item?.size}</td>
+                <td>{item?.pieces}</td>
                 <td>
-                  <button className='bg-[#d84315] p-2 text-white edit_btn'>Cancel</button>
+                  {
+                    item?.status == 'Pending' ? <button className='bg-[#d84315] p-2 text-white edit_btn'>Cancel</button> : 
+                    <p>{item?.status}</p>
+                  }
                 </td>
               </tr>
               ))

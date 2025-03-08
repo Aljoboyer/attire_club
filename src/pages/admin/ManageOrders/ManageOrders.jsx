@@ -1,8 +1,13 @@
 import React from 'react'
 import DashboardLayout from '../../../components/Dasboard/DasboardLayout/DasboardLayout'
 import { Table } from 'react-bootstrap'
+import { useGetAllOrdersQuery } from '../../../redux/features/productApi';
 
 const ManageOrders = () => {
+
+  const {data: allOrders, refetch} = useGetAllOrdersQuery({
+                refetchOnMountOrArgChange: true,
+              });
   return (
     <DashboardLayout>
      <div  className='pl-[200px] py-4 flex flex-row justify-center'>
@@ -11,6 +16,7 @@ const ManageOrders = () => {
             <thead>
               <tr>
               <th>Customer Name</th>
+              <th>Phone</th>
                 <th>Product Name</th>
                 <th>Location</th>
                 <th>Paid Amount</th>
@@ -21,17 +27,21 @@ const ManageOrders = () => {
             </thead>
             <tbody>
              {
-              [1,2,3,4,5]?.map((item) => (
+             allOrders?.map((item) => (
                 <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                 <td>{item?.customerName}</td>
+                  <td>{item?.phone}</td>
+                 <td>{item?.name}</td>
+                  <td>{item?.location}</td>
+                  <td>{item?.totalProdPrice}</td>
+                  <td>{item?.pieces}</td>
+                  <td>{item?.size}</td>
                 <td>
-                  <button className='bg-[#d84315] p-2 text-white edit_btn'>Delete</button>
-                  <button  className='bg-[#00c853] ms-2 p-2 text-white edit_btn'>Approve</button>
+                  {
+                    item?.status == 'Pending' ? <div className='flex flex-row'><button className='bg-[#d84315] p-2 text-white edit_btn'>Delete</button>
+                  <button  className='bg-[#00c853] ms-2 p-2 text-white edit_btn'>Approve</button></div> : 
+                  <p>{item?.status}</p>
+                  }
                 </td>
               </tr>
               ))
