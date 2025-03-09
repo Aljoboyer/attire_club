@@ -1,14 +1,40 @@
 import React from 'react'
 import VisitorLayout from '../../components/VisitorLayout/VisitorLayout'
 import { Table } from 'react-bootstrap'
-import { useGetAllOrdersQuery } from '../../redux/features/productApi';
+import { useChangeOrderStatusMutation, useGetAllOrdersQuery } from '../../redux/features/productApi';
+import Swal from 'sweetalert2';
 
 const Myorders = () => {
 
   const {data: allOrders, refetch} = useGetAllOrdersQuery({
               refetchOnMountOrArgChange: true,
             });
-  console.log('all Orders ===>', allOrders)
+ const [changeOrderStatusTrigger, {}] = useChangeOrderStatusMutation()
+   
+   const updateStatus = async (status, id) => {
+     const requestBody = {
+         status: status
+     }
+ 
+     const response = await changeOrderStatusTrigger({requestBody, id})
+     
+           if(response.data?.msg == "Order updated"){
+                 
+                 Swal.fire({
+                   title: "Success!",
+                   text: "Order Status changed Successfully",
+                   icon: "success"
+                 })
+                 refetch()
+               }
+               else{
+                 Swal.fire({
+                   title: "Error!",
+                   text: "Something went wrong",
+                   icon: "error"
+                 })
+               }
+   }
   
   return (
     <VisitorLayout>
@@ -38,7 +64,7 @@ const Myorders = () => {
                 <td>{item?.pieces}</td>
                 <td>
                   {
-                    item?.status == 'Pending' ? <button className='bg-[#d84315] p-2 text-white edit_btn'>Cancel</button> : 
+                    item?.status == 'Pending' ? <button onClick={() => updateStatus('Canceled', item?._id)} className='bg-[#d84315] p-2 text-white edit_btn'>Cancel</button> : 
                     <p>{item?.status}</p>
                   }
                 </td>

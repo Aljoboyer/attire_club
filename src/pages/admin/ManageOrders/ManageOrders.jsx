@@ -1,13 +1,40 @@
 import React from 'react'
 import DashboardLayout from '../../../components/Dasboard/DasboardLayout/DasboardLayout'
 import { Table } from 'react-bootstrap'
-import { useGetAllOrdersQuery } from '../../../redux/features/productApi';
+import { useChangeOrderStatusMutation, useGetAllOrdersQuery } from '../../../redux/features/productApi';
+import Swal from 'sweetalert2';
 
 const ManageOrders = () => {
 
   const {data: allOrders, refetch} = useGetAllOrdersQuery({
                 refetchOnMountOrArgChange: true,
               });
+  const [changeOrderStatusTrigger, {}] = useChangeOrderStatusMutation()
+  
+  const updateStatus = async (status, id) => {
+    const requestBody = {
+        status: status
+    }
+
+    const response = await changeOrderStatusTrigger({requestBody, id})
+    
+          if(response.data?.msg == "Order updated"){
+                
+                Swal.fire({
+                  title: "Success!",
+                  text: "Order Status changed Successfully",
+                  icon: "success"
+                })
+                refetch()
+              }
+              else{
+                Swal.fire({
+                  title: "Error!",
+                  text: "Something went wrong",
+                  icon: "error"
+                })
+              }
+  }
   return (
     <DashboardLayout>
      <div  className='pl-[200px] py-4 flex flex-row justify-center'>
@@ -38,8 +65,8 @@ const ManageOrders = () => {
                   <td>{item?.size}</td>
                 <td>
                   {
-                    item?.status == 'Pending' ? <div className='flex flex-row'><button className='bg-[#d84315] p-2 text-white edit_btn'>Delete</button>
-                  <button  className='bg-[#00c853] ms-2 p-2 text-white edit_btn'>Approve</button></div> : 
+                    item?.status == 'Pending' ? <div  className='flex flex-row'><button onClick={() => updateStatus('Canceled', item?._id)} className='bg-[#d84315] p-2 text-white edit_btn'>Cancel</button>
+                  <button onClick={() => updateStatus('Approved', item?._id)} className='bg-[#00c853] ms-2 p-2 text-white edit_btn'>Approve</button></div> : 
                   <p>{item?.status}</p>
                   }
                 </td>

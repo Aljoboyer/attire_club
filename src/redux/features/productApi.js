@@ -53,6 +53,15 @@ const authApi = api.injectEndpoints({
     //   invalidatesTags: [''],
     }),
 
+    changeOrderStatus: builder.mutation({
+      query: (data) => ({
+        url: `/statuschange/${data.id}`,
+        method: 'PUT',
+        body: data.requestBody
+      }),
+    //   invalidatesTags: [''],
+    }),
+
   }),
 });
 
@@ -62,5 +71,6 @@ export const {
   useDeleteProductMutation,
   useUpdateProductMutation,
   useOrderSubmitMutation,
-  useGetAllOrdersQuery
+  useGetAllOrdersQuery,
+  useChangeOrderStatusMutation
 } = authApi;
