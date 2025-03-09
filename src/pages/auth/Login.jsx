@@ -19,7 +19,7 @@ const Login = () => {
   const onSubmit= (data) => {
         const loginData = data
         
-         fetch('http://localhost:5000/login', {
+         fetch('https://attire-club-backend.vercel.app/login', {
           method: 'POST',
           headers:{
             'Content-Type': 'application/json'
